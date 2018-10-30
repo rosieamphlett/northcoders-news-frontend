@@ -1,0 +1,33 @@
+.article-title {
+    color: rgb(76, 77, 77);
+     font-weight: bolder;
+     max-width: 40%;
+     margin: 0 auto 0 auto;
+     padding-top: 40px;
+}
+
+.article-pic {
+    max-width: 40%;
+}
+
+a {
+    color: rgb(76, 77, 77);
+    text-decoration: none; 
+}
+
+.loading-spinner {
+    border-radius: 50%;
+    max-width: 20%
+}
+
+.loading {
+    color: rgb(51, 142, 172);
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+.votes {
+    color: rgb(236, 109, 130);
+    font-weight: bolder;
+  }
+

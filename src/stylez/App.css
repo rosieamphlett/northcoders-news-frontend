@@ -1,0 +1,78 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background: lightpink;
+  height: 60px;
+  padding: 20px;
+  color: white;
+  line-height: 5px
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+
+@media all and (max-width: 500px) { 
+  .App-title {
+    font-size: 20px;
+  }
+}
+
+@media all and (max-width: 400px) { 
+  .App-title {
+    font-size: 16px;
+  }
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.article-pic {
+  max-width: 40%;
+}
+
+
+
+.login {
+  color: rgb(51, 142, 172);
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.logged-in {
+  color: green
+}
+
+.select {
+  background: rgb(208, 192, 250);
+  padding: 5px;
+  border-radius: 30px;
+  color: rgb(40, 3, 82)
+}
+
+.select:hover {
+  background: pink;
+}
+
+.posted-by {
+  color: rgb(51, 142, 172);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.error {
+  color: rgb(76, 77, 77);
+  font-style: bold;
+}
+
+.emoji {
+  max-width: 30%
+}
+
+.user-avatar {
+  max-width: 20%
+}
