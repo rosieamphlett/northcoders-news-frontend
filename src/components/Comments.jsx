@@ -104,7 +104,7 @@ class Comments extends Component {
       })
       .then(() => {
         api
-          .fetchComments(this.props.articleId)
+          .fetchCommentsForArticle(this.props.articleId)
           .then(({ data }) => {
             this.setState({ comments: data.comment });
           })

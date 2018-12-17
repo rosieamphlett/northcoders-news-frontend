@@ -14,7 +14,7 @@ class CommentVotes extends Component {
       <div>
           <button className="vote-button" disabled={!this.props.loggedInUser || this.state.isButtonDisabled} onClick={() => {this.commentVote("up")}}><span role="img" aria-label="emoji">👍</span></button>
           <span className="commentVotes">{" "}{this.props.votes + this.state.comVote} {" "}</span>
-          <button className="vote-button" disabled={!this.props.loggedInUser || this.state.isButtonDisabled} onClick={() => { this.commentVote("down")}}><span role="img" aria-label="emoji">👎</span></button>
+          <button className="vote-button" disabled={!this.props.loggedInUser || this.state.isButtonDisabled} onClick={() => {this.commentVote("down")}}><span role="img" aria-label="emoji">👎</span></button>
       </div>
     );
   }

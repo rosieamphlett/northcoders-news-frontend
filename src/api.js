@@ -41,26 +41,31 @@ export const fetchComments = errorHandling(id => {
   .then(({data} ) => data);
 });
 
+export const fetchCommentsForArticle = errorHandling((articleId) => {
+  return Axios.get(`${URL}/articles/${articleId}/comments`)
+});
+
 export const deleteComment = errorHandling(commentId => {
   return Axios.delete(`${URL}/comments/${commentId}`)
   .then(res => res.data.msg);
 });
 
 export const postNewComment = (articleid, comment) => {
-  return Axios
-    .post(`${URL}/articles/${articleid}/comments`, comment)
+  return Axios.post(`${URL}/articles/${articleid}/comments`, comment)
+    .then(res => res.data.comment);
+};
+
+export const changeCommentVote = (commentId, direction) => {
+  return Axios.put(`${URL}/comments/${commentId}?vote=${direction}`)
     .then(res => res.data.comment);
 };
 
 export const articleVoteApi = (articleId, voteDirection) => {
-  return Axios
-  .put(`${URL}/articles/${articleId}?vote=${voteDirection}`)
+  return Axios.put(`${URL}/articles/${articleId}?vote=${voteDirection}`)
   .then(res => res.data.article);
 };
 
-export const changeCommentVote = (commentId, direction) => {
-  return Axios
-    .put(`${URL}/comments/${commentId}?vote=${direction}`)
-    .then(res => res.data.comment);
-};
+// export const changeVotes = (path, direction) => {
+//   return Axios.put(`${URL}${path}?vote=${direction}`)
+// }
 
