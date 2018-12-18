@@ -1,5 +1,10 @@
 ## Northcoders News
 
+
+### Live Hosted application: 
+
+https://nc-news.netlify.com/
+
 ### What is Northcoders News?
 Northcoders News is a social news aggregation, web content rating, and discussion website which is based off reddit (https://www.reddit.com/). It has articles within different topics, which users can comment and vote on. 
 
@@ -27,13 +32,10 @@ npm start
 ```
 When you run this command, React will start a server and open a new browser window to show the Northcoders News App.
 
-### Live Hosted application: 
-
-https://naughty-lamport-230efd.netlify.com/
-
 ### Built With:
 * [NPM](https://docs.npmjs.com)
 * [React](https://reactjs.org) 
 * [React Router DOM](https://github.com/ReactTraining/react-router#readme) 
 * [Axios](https://github.com/axios/axios) 
-* [Moment](https://momentjs.com/) # nc-edit
+* [Moment](https://momentjs.com/) 
+```
