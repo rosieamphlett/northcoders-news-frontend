@@ -26,9 +26,8 @@ class CommentVotes extends Component {
       comVote: comVote,
       isButtonDisabled: true 
     });
-    api.changeCommentVote(this.props.commentId, direction).then(res => {
-      return res.data;
-    });
+    api.changeCommentVote(this.props.comment._id, direction)
+    .then(res => res.data);
   };
 }
 

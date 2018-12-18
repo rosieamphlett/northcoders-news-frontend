@@ -20,18 +20,18 @@ class User extends Component {
           })
         } else {
           this.setState({
-            profile: res.user[0]
+            profile: res[0]
           })
         }
       })
     }
-
 
   render() {
     if (this.state.error) {
       return <Redirect to={{pathname: '/error', state: this.state.error}} />
     } else {
       return (
+        
         <div className="user-summary">
           <h3 className="username-heading"> {this.state.profile.username}</h3>
           <img className="avatar" src={this.state.profile.avatar_url} alt="user-avatar" onError={event =>

@@ -13,13 +13,18 @@ class AddComment extends Component {
           <textarea className="post-comment-box" placeholder="Write your comment here..." cols="50"
               rows="5" type="text" value={this.state.commentBody} onChange={this.addCommentText}/><br/>
           <button className="select" onClick={() => { 
-              this.props.addComment(this.props.articleid, this.state.commentBody);
+            this.props.addComment(this.props.articleid, this.state.commentBody)
+              this.setState ({
+                commentBody: ''
+              })
             }}>Post My Comment!</button><br/><br/>
     </div>);
   }
 
   addCommentText = event => {
-    this.setState({ commentBody: event.target.value })
+    this.setState({ 
+      commentBody: event.target.value 
+    })
   };
 
 }

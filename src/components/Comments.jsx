@@ -10,9 +10,7 @@ import { Redirect, Link } from 'react-router-dom';
 class Comments extends Component {
   state = {
     comments: [],
-    userComment: false,
     error: null,
-    currentUser: '',
   };
 
   render() {
@@ -39,7 +37,7 @@ class Comments extends Component {
                 {moment(comment.created_at).startOf().fromNow().toString()}
               </span>
               {this.props.loggedInUser === comment.created_by.name ? <button className="deleteButton" onClick={this.handleDelete(comment._id)}>delete me</button> : ''}
-              <CommentVotes votes={comment.votes} comment={comment} commentId={comment._id} />
+              <CommentVotes votes={comment.votes} comment={comment} loggedInUser={this.props.loggedInUser} />
               <br/>
             </div>
           );
@@ -65,14 +63,25 @@ class Comments extends Component {
   loadComments = () => {
     api
       .fetchComments(this.props.articleId)
-      .then(res => res.type === 'error' ? this.setState({error: res.error}) : this.setState({ comments: res.comment }));
+      .then(res => {
+        if (res.type === 'error') {
+          this.setState({error: res.error})
+        } else {  
+          let comments = res.comment.sort((a, b) => {
+            return moment(a.created_at).diff(moment(b.created_at), "seconds");
+          });
+          this.setState({ 
+            comments
+          })
+        }
+      });
   }
 
   handleDelete = commentId => {
       return () => {
       api.deleteComment(commentId).then(msg => {
         if (msg === "your comment has been deleted!") { // eslint-disable-next-line
-          let newArr = this.state.comments.filter(comment => {
+          let newArr = this.state.comments.filter(comment => { 
             if (comment._id !== commentId) {
               return comment;
             }
@@ -86,7 +95,6 @@ class Comments extends Component {
   };
 
   addComment = (articleid, data) => {
-    //currentUser=this.props.loggedInUser
     data = {
       body: data,
       created_by: this.props.loggedInID
@@ -95,23 +103,15 @@ class Comments extends Component {
       .postNewComment(articleid, data)
       .then( comment  => {
         this.setState({ 
-          comments: [...this.state.comments, comment],
-          commentBody: "",
+          comments: [comment, ...this.state.comments]
          });
       })
       .catch(err => {
         this.setState({ errorComments: true });
       })
       .then(() => {
-        api
-          .fetchCommentsForArticle(this.props.articleId)
-          .then(({ data }) => {
-            this.setState({ comments: data.comment });
-          })
-          .catch(err => {
-            this.setState({ errorComments: true });
-          });
-      });
+        this.loadComments();
+      })
   };
 }
 
