@@ -5,29 +5,27 @@ import pt from 'prop-types';
 
 class CommentVotes extends Component {
   state = {
-    comVote: 0,
-    isButtonDisabled: false
+    comVote: 0
   };
 
   render() {
     return (
       <div>
-          <button className="vote-button" disabled={!this.props.loggedInUser || this.state.isButtonDisabled} onClick={() => {this.commentVote("up")}}><span role="img" aria-label="emoji">👍</span></button>
+          <button className="vote-button" disabled={!this.props.loggedInUser || this.state.comVote > 0} onClick={() => {this.commentVote("up")}}><span role="img" aria-label="emoji">👍</span></button>
           <span className="commentVotes">{" "}{this.props.votes + this.state.comVote} {" "}</span>
-          <button className="vote-button" disabled={!this.props.loggedInUser || this.state.isButtonDisabled} onClick={() => {this.commentVote("down")}}><span role="img" aria-label="emoji">👎</span></button>
+          <button className="vote-button" disabled={!this.props.loggedInUser || this.state.comVote < 0} onClick={() => {this.commentVote("down")}}><span role="img" aria-label="emoji">👎</span></button>
       </div>
     );
   }
 
   commentVote = direction => {
-    let comVote = this.state.comVote;
+    let { comVote } = this.state
     direction === "up" ? comVote++ : comVote--;
     this.setState({ 
-      comVote: comVote,
-      isButtonDisabled: true 
+      comVote
     });
     api.changeCommentVote(this.props.comment._id, direction)
-    .then(res => res.data);
+    .then(res => res.votes);
   };
 }
 

@@ -6,7 +6,6 @@ import pt from "prop-types";
 class articleVote extends Component {
   state = {
     userVote: 0,
-    isButtonDisabled: false
   };
 
   render() {
@@ -14,8 +13,8 @@ class articleVote extends Component {
       <div>
         <span>
           <div className="votes">Article votes: {this.props.votes + this.state.userVote}</div><br/>
-          <button className="vote-button" disabled={!this.props.loggedInUser || this.state.isButtonDisabled} onClick={() => this.articleVote("up")}><span role="img" aria-label="emoji">👍</span></button> 
-          <button className="vote-button" disabled={!this.props.loggedInUser || this.state.isButtonDisabled} onClick={() => this.articleVote("down")}><span role="img" aria-label="emoji">👎</span></button>
+          <button className="vote-button" disabled={!this.props.loggedInUser || this.state.userVote > 0} onClick={() => this.articleVote("up")}><span role="img" aria-label="emoji">👍</span></button> 
+          <button className="vote-button" disabled={!this.props.loggedInUser || this.state.userVote < 0} onClick={() => this.articleVote("down")}><span role="img" aria-label="emoji">👎</span></button>
           {!this.props.loggedInUser ? <p>You must be logged in to vote!</p> : ''}
         </span>
       </div>
@@ -23,15 +22,16 @@ class articleVote extends Component {
   }
 
   articleVote = direction => {
-    let userVote = this.state.userVote
+    let {userVote} = this.state
       direction === "up" ? userVote++ : userVote--;
       this.setState({ 
-        userVote: userVote,
-        isButtonDisabled: true
+        userVote
        });
       api.articleVoteApi(this.props.articleId, direction)
-      .then(res => res.data)
+      .then(res => res.votes)
   }
+
+
 }
 
 articleVote.propTypes = {
