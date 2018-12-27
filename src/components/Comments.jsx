@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import pt from "prop-types";
 import * as api from "../api.js";
 import moment from "moment";
-import CommentVotes from "./CommentVotes";
+import Votes from "./Votes";
 import '../stylez/Comments.css';
 import AddComment from './AddComment';
 import { Redirect, Link } from 'react-router-dom';
@@ -37,7 +37,7 @@ class Comments extends Component {
                 {moment(comment.created_at).startOf().fromNow().toString()}
               </span>
               {this.props.loggedInUser === comment.created_by.name ? <button className="deleteButton" onClick={this.handleDelete(comment._id)}>delete me</button> : ''}
-              <CommentVotes votes={comment.votes} comment={comment} loggedInUser={this.props.loggedInUser} />
+              <Votes path={`comments/${comment._id}`} votes={comment.votes} comment={comment} loggedInUser={this.props.loggedInUser} />
               <br/>
             </div>
           );

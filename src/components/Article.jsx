@@ -3,7 +3,7 @@ import * as api from "../api";
 import { Redirect } from "react-router-dom";
 import "../stylez/Article.css";
 import "../stylez/App.css";
-import ArticleVote from "./ArticleVote";
+import Votes from "./Votes";
 import Comments from "./Comments";
 import pt from 'prop-types';
 
@@ -35,7 +35,7 @@ class Article extends Component {
           <img className= "article-pic" src="https://cdn-images-1.medium.com/max/1600/1*8r6hvv5E-FOOdKOih4G7Hg.jpeg" alt="code"></img>
           <br/><br/>
           <p className="article-body">{this.state.article[0].body}</p><br/>
-          <ArticleVote articleId={this.state.article[0]._id} votes={this.state.article[0].votes} loggedInUser={this.props.loggedInUser}/><br/>
+          <Votes path={`articles/${this.state.article[0]._id}`} articleId={this.state.article[0]._id} votes={this.state.article[0].votes} loggedInUser={this.props.loggedInUser}/><br/>
         <div className="comments-box">
         <h3 className="comment-headings">Comments</h3>
         <Comments loggedInID ={this.props.loggedInID} articleId={this.state.article[0]._id} loggedInUser={this.props.loggedInUser} getNewComment={this.getNewComment}/>

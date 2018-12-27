@@ -55,17 +55,6 @@ export const postNewComment = (articleid, comment) => {
     .then(res => res.data.comment);
 };
 
-export const changeCommentVote = (commentId, direction) => {
-  return Axios.put(`${URL}/comments/${commentId}?vote=${direction}`)
-    .then(res => res.data.comment);
-};
-
-export const articleVoteApi = (articleId, voteDirection) => {
-  return Axios.put(`${URL}/articles/${articleId}?vote=${voteDirection}`)
-  .then(res => res.data.article);
-};
-
-// export const changeVotes = (path, direction) => {
-//   return Axios.put(`${URL}${path}?vote=${direction}`)
-// }
-
+export const changeVotes = (path, direction) => {
+  return Axios.put(`${URL}${path}?vote=${direction}`)
+}
