@@ -28,17 +28,29 @@ class Article extends Component {
           </div>
 
     } else  {
+      let {article} = this.state
        if (this.state.article.length !== 0) {
+
+        let imagesrc;
+           if (article[0].belongs_to === 'coding') {
+            imagesrc = "https://cdn-images-1.medium.com/max/1600/1*8r6hvv5E-FOOdKOih4G7Hg.jpeg"
+          } else if(article[0].belongs_to === 'cooking') {
+            imagesrc = "https://usateatsiptrip.files.wordpress.com/2018/03/gettyimages-887636042.jpg?w=1000&h=600&crop=1"
+          } else if(article[0].belongs_to === 'football') {
+            imagesrc = "https://nevadapreps.com/wp-content/uploads/2017/08/9048804_web1_bcr-soccer-aug04-16.jpg"
+          } else {
+            imagesrc = "http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"
+          }
       return (
         <div>
-          <h3 className="article-title">{this.state.article[0].title}</h3><br/>
-          <img className= "article-pic" src="https://cdn-images-1.medium.com/max/1600/1*8r6hvv5E-FOOdKOih4G7Hg.jpeg" alt="code"></img>
+          <h3 className="article-title">{article[0].title}</h3><br/>
+          <img className= "article-pic" src={`${imagesrc}`} alt="code"></img>
           <br/><br/>
-          <p className="article-body">{this.state.article[0].body}</p><br/>
-          <Votes path={`/articles/${this.state.article[0]._id}`} articleId={this.state.article[0]._id} votes={this.state.article[0].votes} loggedInUser={this.props.loggedInUser}/><br/>
+          <p className="article-body">{article[0].body}</p><br/>
+          <Votes path={`/articles/${article[0]._id}`} articleId={article[0]._id} votes={article[0].votes} loggedInUser={this.props.loggedInUser}/><br/>
         <div className="comments-box">
         <h3 className="comment-headings">Comments</h3>
-        <Comments loggedInID ={this.props.loggedInID} articleId={this.state.article[0]._id} loggedInUser={this.props.loggedInUser} getNewComment={this.getNewComment}/>
+        <Comments loggedInID ={this.props.loggedInID} articleId={article[0]._id} loggedInUser={this.props.loggedInUser} getNewComment={this.getNewComment}/>
         </div>
       </div>
       )

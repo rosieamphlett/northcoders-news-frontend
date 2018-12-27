@@ -23,20 +23,20 @@ class Articles extends Component {
     } else return (
         <div>
         {this.state.articles.map(article => {
-          let imageSrc;
+          let imagesrc;
            if (article.belongs_to === 'coding') {
-            imageSrc = "https://cdn-images-1.medium.com/max/1600/1*8r6hvv5E-FOOdKOih4G7Hg.jpeg"
+            imagesrc = "https://cdn-images-1.medium.com/max/1600/1*8r6hvv5E-FOOdKOih4G7Hg.jpeg"
           } else if(article.belongs_to === 'cooking') {
-            imageSrc = "https://usateatsiptrip.files.wordpress.com/2018/03/gettyimages-887636042.jpg?w=1000&h=600&crop=1"
+            imagesrc = "https://usateatsiptrip.files.wordpress.com/2018/03/gettyimages-887636042.jpg?w=1000&h=600&crop=1"
           } else if(article.belongs_to === 'football') {
-            imageSrc = "https://nevadapreps.com/wp-content/uploads/2017/08/9048804_web1_bcr-soccer-aug04-16.jpg"
+            imagesrc = "https://nevadapreps.com/wp-content/uploads/2017/08/9048804_web1_bcr-soccer-aug04-16.jpg"
           } else {
-            imageSrc = "http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"
+            imagesrc = "http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"
           }
             return <div key={article._id}>
-            <Link to={`/articles/${article._id}`} className="article-link">
+          <Link to={`/articles/${article._id}`} className="article-link" >
             <h2 className="article-title">{article.title}</h2>
-            <img className= "article-pic" src={`${imageSrc}`} alt="code"></img>
+            <img className= "article-pic" src={`${imagesrc}`} alt="code"></img>
           </Link><br/>
           <Link to={`/users/${article.created_by.username}`} className ="posted-by">Posted by: {article.created_by.username}</Link>
           <p className="votes">Votes: {article.votes}</p>
