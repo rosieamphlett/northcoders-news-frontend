@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import "../stylez/Articles.css";
 import "../stylez/App.css";
 import * as api from '../api';
+import moment from 'moment';
 import pt from 'prop-types'
 
 class Articles extends Component {
@@ -27,8 +28,10 @@ class Articles extends Component {
             imageSrc = "https://cdn-images-1.medium.com/max/1600/1*8r6hvv5E-FOOdKOih4G7Hg.jpeg"
           } else if(article.belongs_to === 'cooking') {
             imageSrc = "https://usateatsiptrip.files.wordpress.com/2018/03/gettyimages-887636042.jpg?w=1000&h=600&crop=1"
-          } else {
+          } else if(article.belongs_to === 'football') {
             imageSrc = "https://nevadapreps.com/wp-content/uploads/2017/08/9048804_web1_bcr-soccer-aug04-16.jpg"
+          } else {
+            imageSrc = "http://saveabandonedbabies.org/wp-content/uploads/2015/08/default.png"
           }
             return <div key={article._id}>
             <Link to={`/articles/${article._id}`} className="article-link">
@@ -46,8 +49,7 @@ class Articles extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.slugId !== this.props.slugId) {
       if (this.props.slugId === undefined) {
-        api
-          .fetchArticles()
+        api.fetchArticles()
           .then(res => {
             this.setState({ articles: res });
           })
@@ -77,7 +79,10 @@ class Articles extends Component {
               error: res.error
             })
           } else {
-            this.setState({ articles: res });
+            let articles = res.sort((a, b) => {
+              return moment(b.created_at).diff(moment(a.created_at), "seconds");
+            })
+            this.setState({ articles });
           }
         }) 
       : api
@@ -88,7 +93,10 @@ class Articles extends Component {
                 error: res.error
               })
             } else {
-              this.setState({ articles: res });
+              let articles = res.sort((a, b) => {
+                return moment(b.created_at).diff(moment(a.created_at), "seconds");
+              })
+              this.setState({ articles });
             }
           })
     }

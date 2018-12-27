@@ -10,21 +10,21 @@ class AddArticle extends Component {
 
     render() {
         return (
-            <div className="postArticle">
-                <form className="articleform" onSubmit={this.submit}>
-                <h1>Post a New Article</h1>
-                    <input type='text' placeholder='Title' name="title" onChange={this.changeInput}
+            <div className="dropdown">
+                <button className="dropbtn">Post New Article</button>
+                <form className="dropdown-content" onSubmit={this.submit}>
+                    <textarea type='text' rows="1" cols="30" placeholder='Title' name="title" onChange={this.changeInput}
                         value={this.state.title} className='titleBox' /><br/>
-                    <input type='text' placeholder="What would you like to write about?"
+                    <textarea type='text' rows="5" cols="30" placeholder="What would you like to write about?"
                         onChange={this.changeInput} name="body" value={this.state.body} className='bodyBox'/><br/>
-                    <select className="select" onChange={this.changeTopic}>
+                    <select className="selector" onChange={this.changeTopic}>
                         <option>Pick a Topic</option>
                             {this.props.topics.map(topic => (
-                                <option className="select-options" value={topic.name} name={topic} key={topic._id}>
+                                <option className="select-options" value={topic.slug} name={topic} key={topic._id}>
                             {topic.title}
                         </option>)) }
-                    </select><br/><br />
-                    <button>Post Article</button>
+                    </select><br />
+                    <button className="postarticle-submit">Post Article</button>
                 </form>
             </div>
         );

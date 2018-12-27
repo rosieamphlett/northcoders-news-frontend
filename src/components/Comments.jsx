@@ -37,7 +37,7 @@ class Comments extends Component {
                 {moment(comment.created_at).startOf().fromNow().toString()}
               </span>
               {this.props.loggedInUser === comment.created_by.name ? <button className="deleteButton" onClick={this.handleDelete(comment._id)}>delete me</button> : ''}
-              <Votes path={`comments/${comment._id}`} votes={comment.votes} comment={comment} loggedInUser={this.props.loggedInUser} />
+              <Votes path={`/comments/${comment._id}`} votes={comment.votes} comment={comment} loggedInUser={this.props.loggedInUser} />
               <br/>
             </div>
           );

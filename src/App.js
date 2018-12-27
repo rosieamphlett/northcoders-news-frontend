@@ -7,6 +7,7 @@ import User from "./components/User";
 import Error from "./components/Error";
 import Login from "./components/Login";
 import Nav from './components/Nav';
+import moment from 'moment';
 import * as api from "./api";
 
 class App extends Component {
@@ -44,6 +45,9 @@ class App extends Component {
   componentDidMount() {
     return Promise.all([api.fetchArticles(),api.fetchUsers()])
     .then(([articlesData, usersData]) => {
+      articlesData = articlesData.sort((a, b) => {
+        return moment(b.created_at).diff(moment(a.created_at), "seconds");
+      })
       this.setState({
         articles: articlesData,
         users: usersData.data.users
@@ -73,7 +77,10 @@ class App extends Component {
   }
 
   addContent = (content) => {
-    const articles = [...this.state.articles, content]
+    let articles = [...this.state.articles, content]
+    articles = articles.sort((a, b) => {
+      return moment(b.created_at).diff(moment(a.created_at), "seconds");
+    })
     this.setState({
         articles
     })

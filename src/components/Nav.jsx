@@ -15,8 +15,7 @@ class Nav extends Component {
                 <nav className="navbar">
                 {this.state.topics.map((topic, i) => (
                 <NavLink to={`/topics/${topic.slug}`} activeStyle={activeStyle} key={i}>{" | " } {topic.title} {" | "}</NavLink>))}
-                </nav>
-                {this.props.loggedInUser && <AddArticle topics={this.state.topics} user={this.props.user} addContent={this.props.addContent}/>}
+                </nav>{this.props.loggedInUser && <AddArticle topics={this.state.topics} user={this.props.user} addContent={this.props.addContent}/>}
             </div>
         );
     }
