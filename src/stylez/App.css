@@ -76,3 +76,22 @@
 .user-avatar {
   max-width: 20%
 }
+
+
+.postArticle {
+  padding: 20px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.articleform {
+  background: grey;
+  padding: 20px;
+  color: white;
+}
+
+input[type="text"] {
+  margin: 10px;
+}
+

@@ -20,7 +20,6 @@ class Votes extends Component {
     } else if (!(/comments/g.test(this.props.path)) && !this.props.loggedInUser) {
       return <p>You must be logged in to vote!</p>
     }
-    
   }
 
   clickVote = direction => {

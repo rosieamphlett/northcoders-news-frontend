@@ -15,6 +15,7 @@ class App extends Component {
     users: [],
     loggedInUser: '',
     loggedInID: '',
+    user : {},
     error: null
   };
   
@@ -25,7 +26,7 @@ class App extends Component {
           <Link to="/" className="App-title"><h1>Northcoders News</h1></Link>
         </header><br/>
         <Login users={this.state.users} loggedInUser={this.state.loggedInUser} selectUser={this.selectUser} logOut={this.logOut}/><br/>
-        <Nav />
+        <Nav user={this.state.user} loggedInUser={this.state.loggedInUser}addContent={this.addContent}/>
     
         <div>
           <Switch>
@@ -56,7 +57,10 @@ class App extends Component {
     }, 
     () => this.state.users.forEach(user => {
       if (user._id === this.state.loggedInID) {
-        this.setState ({ loggedInUser: user.name});
+        this.setState ({ 
+          loggedInUser: user.name,
+          user 
+        });
       }
     }))
   }
@@ -67,6 +71,13 @@ class App extends Component {
       loggedInID: ''
     })
   }
+
+  addContent = (content) => {
+    const articles = [...this.state.articles, content]
+    this.setState({
+        articles
+    })
+}
 
   handleError = (error) => {
     this.setState({

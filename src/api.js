@@ -55,6 +55,11 @@ export const postNewComment = (articleid, comment) => {
     .then(res => res.data.comment);
 };
 
+export const postNewArticle = (topic, content) => {
+  return Axios.post(`${URL}/topics/${topic}/articles`, content)
+    .then(res => res.data.content)
+}
+
 export const changeVotes = (path, direction) => {
   return Axios.put(`${URL}${path}?vote=${direction}`)
 }
