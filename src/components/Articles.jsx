@@ -37,7 +37,7 @@ class Articles extends Component {
           <Link to={`/articles/${article._id}`} className="article-link" >
             <h2 className="article-title">{article.title}</h2>
             <img className= "article-pic" src={`${imagesrc}`} alt="code"></img>
-          </Link><br/>
+          </Link>
           <Link to={`/users/${article.created_by.username}`} className ="posted-by">Posted by: {article.created_by.username}</Link>
           <p className="votes">Votes: {article.votes}</p>
           </div>
