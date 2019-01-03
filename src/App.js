@@ -29,15 +29,7 @@ class App extends Component {
         <Login users={this.state.users} loggedInUser={this.state.loggedInUser} selectUser={this.selectUser} logOut={this.logOut}/><br/>
         <Nav user={this.state.user} loggedInUser={this.state.loggedInUser}addContent={this.addContent}/>
     
-        <div>
-          <Switch>
-          <Route exact path="/" render={() => (<Articles articles={this.state.articles} handleError={this.handleError}/>)}/>
-          <Route exact path="/topics/:slug" render={props => (<Articles handleError={this.handleError} slugId={props.match.params.slug} articles={this.state.articles}/>)}/>
-          <Route exact path="/articles/:id" render={props => (<Article loggedInID={this.state.loggedInID} handleError={this.handleError} articleId={props.match.params.id} articles={this.state.articles} loggedInUser={this.state.loggedInUser}/>)}/>
-          <Route exact path="/users/:id" render={props => (<User userId={props.match.params.id} handleError={this.handleError}/>)}/>
-          <Route path="/*" component={Error}/>
-          </Switch>
-        </div>
+        {this.props.children}
       </div>
     );
   }
