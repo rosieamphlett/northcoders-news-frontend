@@ -4,21 +4,23 @@ import chooseImg from '../helpers/index';
 import Votes from './Votes';
 import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
+import Login from './Login';
 // import AddComment from './AddComment';
 
 class Article extends React.Component {
   componentDidMount () {
     this.props.fetchArticlesByID(this.props.match.params.article_id);
     this.props.fetchComments(this.props.match.params.article_id);
+    this.props.fetchUsers();
   }
 
   render () {
       let {loading, selectedArticle, selectedComments} = this.props
-      console.log(this.props)
       if (loading === false) {
         return (
         <div className="articlePage columns">
-            <div className="column is-three-quarters">
+          <Login users={this.props.users} />
+            <div>
                 <article>
                     <h1>{selectedArticle.title}</h1>
                     <img src={chooseImg(selectedArticle.belongs_to)} alt="article-pic" />
@@ -39,7 +41,7 @@ class Article extends React.Component {
                     </article>)}
                 </article>
             </div>
-            {/* <AddComment postComment={this.props.addContent} article_id={this.props.match.params.article_id}/> */}
+            {/* <AddComment postComment={this.props.addContent} article_id={this.props.match.params.article_id}/> */} */}
         </div>
         );
     } else {
@@ -55,6 +57,9 @@ function mapDispatchToProps (dispatch) {
     },
     fetchComments: (id) => {
       dispatch(actions.fetchComments(id));  
+    },
+    fetchUsers: () => {
+      dispatch(actions.fetchUsers());
     }
   };
 }
@@ -63,7 +68,9 @@ function MapStateToProps (state) {
   return {
     selectedArticle: state.selectedArticle,
     selectedComments: state.selectedComments,
-    loading: state.loading
+    loading: state.loading,
+    users: state.users,
+    user: state.user
   };
 }
 

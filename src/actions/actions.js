@@ -43,7 +43,6 @@ export function fetchUsers () {
     dispatch(fetchUsersRequest());
     axios.get(`${url}/users`)
     .then(res => {
-      console.log(res.data.users)
       dispatch(fetchUsersSuccess(res.data.users))
     })
     .catch(err => {
@@ -76,7 +75,6 @@ export function fetchUsersError (error) {
 //logged in user
 
 export function loggedInUser (user) {
-  console.log(user)
   return {
     type: types.LOGGED_IN_USER,
     payload: user

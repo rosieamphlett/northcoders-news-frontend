@@ -34,7 +34,7 @@ class Articles extends Component {
 
   componentDidMount () {
     this.props.fetchArticles();
-    this.props.fetchUsers()
+    this.props.fetchUsers();
   }
 
   mapArticles(articles) {

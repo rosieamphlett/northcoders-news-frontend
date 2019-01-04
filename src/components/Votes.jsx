@@ -10,14 +10,16 @@ class Votes extends Component {
     }
 
   render() {
-      console.log(this.state.userVotes)
-      return (
-        <div>
-            <button className="vote-button" disabled={this.state.userVotes > 0} onClick={() => {this.clickVote(this.props.path, "up")}}><span role="img" aria-label="emoji">👍</span></button>
-            <span className="commentVotes">{" "}{this.props.votes + this.state.userVotes} {" "}</span>
-            <button className="vote-button" disabled={this.state.userVotes < 0} onClick={() => {this.clickVote(this.props.path, "down")}}><span role="img" aria-label="emoji">👎</span></button>
-        </div>
-      );
+      if (this.props.user) {
+        return (
+            <div>
+                <button className="vote-button" disabled={this.state.userVotes > 0} onClick={() => {this.clickVote(this.props.path, "up")}}><span role="img" aria-label="emoji">👍</span></button>
+                <span className="commentVotes">{" "}{this.props.votes + this.state.userVotes} {" "}</span>
+                <button className="vote-button" disabled={this.state.userVotes < 0} onClick={() => {this.clickVote(this.props.path, "down")}}><span role="img" aria-label="emoji">👎</span></button>
+            </div>
+        );
+      }
+      else return (<p>pls log in to vote</p>)
   }
 
   clickVote = ((path, direction) => {
@@ -37,10 +39,17 @@ function mapDispatchToProps (dispatch) {
     };
 }
 
+function MapStateToProps (state) {
+    console.log(state)
+    return {
+      user: state.user
+    };
+  }
+
 // Votes.propTypes = {
 //   comments: pt.arrayOf(pt.object),
 //   user: pt.object,
 //   votes: pt.number
 // };
 
-export default connect(mapDispatchToProps)(Votes);
+export default connect(MapStateToProps, mapDispatchToProps)(Votes);

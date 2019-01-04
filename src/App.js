@@ -9,14 +9,14 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Link to="/" className="App-title"><h1>Northcoders News</h1></Link>
-        </header><br/>
+          <Link to="/" className="App-title"><h1>Northcoders News</h1></Link><br/>
+        </header>
+        
         {this.props.children}
       </div>
     );
   }
 }
-
 
 App.propTypes = {
   children: PropTypes.object.isRequired
