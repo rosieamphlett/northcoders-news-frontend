@@ -88,6 +88,28 @@ function reducer (prevState = initialState, action) {
   }
 
   //comments
+  if (action.type === types.ADD_COMMENT_REQUEST) {
+    const newState = {...prevState}
+    newState.loading = true;
+    return newState;
+  }
+
+  if (action.type === types.ADD_COMMENT_SUCCESS) {
+    const newState = {...prevState}
+    newState.selectedComments = action.payload
+    newState.loading = false;
+    return newState;
+  }
+
+  if (action.type === types.ADD_COMMENT_ERROR) {
+    const newState = {...prevState};
+    newState.articles = [];
+    newState.selectedArticle = {};
+    newState.selectedComments = {};
+    newState.loading = false;
+    newState.error = action.error;
+    return newState;
+  }
 
   if (action.type === types.FETCH_COMMENTS_REQUEST) {
     const newState = {...prevState};

@@ -5,7 +5,7 @@ import Votes from './Votes';
 import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
 import Login from './Login';
-// import AddComment from './AddComment';
+import AddComment from './AddComment';
 
 class Article extends React.Component {
   componentDidMount () {
@@ -17,6 +17,7 @@ class Article extends React.Component {
   render () {
       let {loading, selectedArticle, selectedComments} = this.props
       if (loading === false) {
+        console.log(selectedComments)
         return (
         <div className="articlePage columns">
           <Login users={this.props.users} />
@@ -41,7 +42,7 @@ class Article extends React.Component {
                     </article>)}
                 </article>
             </div>
-            {/* <AddComment postComment={this.props.addContent} article_id={this.props.match.params.article_id}/> */} */}
+            <AddComment article_id={this.props.match.params.article_id}/> 
         </div>
         );
     } else {
@@ -55,11 +56,11 @@ function mapDispatchToProps (dispatch) {
     fetchArticlesByID: (id) => {
       dispatch(actions.fetchArticlesByID(id));
     },
-    fetchComments: (id) => {
-      dispatch(actions.fetchComments(id));  
-    },
     fetchUsers: () => {
       dispatch(actions.fetchUsers());
+    },
+    fetchComments: function (id) {
+      dispatch(actions.fetchComments(id))
     }
   };
 }

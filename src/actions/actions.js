@@ -152,6 +152,43 @@ export function fetchArticlesByIDError (error) {
   };
 }
 
+export function postNewComment (article_id, comment) {
+  return function (dispatch) {
+    dispatch(postNewCommentRequest(article_id, comment));
+    axios.post(`${url}/articles/${article_id}/comments`, comment)
+    .then(res => {
+      console.log(`*****`,res)
+      postNewCommentSuccess(res.data.comment)
+    })
+    .then(() => dispatch(fetchComments(article_id)))
+    .catch(err => {
+      dispatch(postNewCommentError(err))
+    })
+  }  
+}
+
+export function postNewCommentRequest (article_id, comment) {
+  return {
+      type: types.ADD_COMMENT_REQUEST,
+      article_id,
+      comment
+  };
+}
+
+export function postNewCommentSuccess (comment) {
+  return {
+      type: types.ADD_COMMENT_SUCCESS,
+      payload: comment 
+  };
+}
+
+export function postNewCommentError (error) {
+  return {
+      type: types.ADD_COMMENT_ERROR,
+      payload: error
+  };
+}
+
 //comments!
 export function fetchComments (id) {
   return function (dispatch) {

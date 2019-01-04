@@ -40,7 +40,6 @@ function mapDispatchToProps (dispatch) {
 }
 
 function MapStateToProps (state) {
-    console.log(state)
     return {
       user: state.user
     };
