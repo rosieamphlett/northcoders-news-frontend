@@ -14,6 +14,10 @@
   font-size: 1.5em;
 }
 
+img {
+  max-width: 50vw
+}
+/* 
 
 @media all and (max-width: 500px) { 
   .App-title {
@@ -34,8 +38,6 @@
 .article-pic {
   max-width: 40%;
 }
-
-
 
 .login {
   color: rgb(51, 142, 172);
@@ -145,4 +147,4 @@ textarea[type="text"] {
 
 .postarticle-submit:hover {
   cursor: pointer;
-}
+} */
