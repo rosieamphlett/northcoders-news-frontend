@@ -1,42 +1,46 @@
-// import React, { Component } from "react";
-// import * as api from "../api.js";
-// import '../stylez/Comments.css';
+import React, { Component } from "react";
+import '../stylez/Comments.css';
 // import pt from 'prop-types';
+import {connect} from 'react-redux';
+import * as actions from "../actions/actions.js";
 
-// class Votes extends Component {
-//   state = {
-//     vote: 0
-//   };
+class Votes extends Component {
+    state = {
+        userVotes: 0,
+    }
 
-//   render() {
-//     if (/comments/g.test(this.props.path) || this.props.loggedInUser) {
-//       return (
-//         <div>
-//             <button className="vote-button" disabled={!this.props.loggedInUser || this.state.vote > 0} onClick={() => {this.clickVote("up")}}><span role="img" aria-label="emoji">👍</span></button>
-//             <span className="commentVotes">{" "}{this.props.votes + this.state.vote} {" "}</span>
-//             <button className="vote-button" disabled={!this.props.loggedInUser || this.state.vote < 0} onClick={() => {this.clickVote("down")}}><span role="img" aria-label="emoji">👎</span></button>
-//         </div>
-//       );
-//     } else if (!(/comments/g.test(this.props.path)) && !this.props.loggedInUser) {
-//       return <p>You must be logged in to vote!</p>
-//     }
-//   }
+  render() {
+      console.log(this.state.userVotes)
+      return (
+        <div>
+            <button className="vote-button" disabled={this.state.userVotes > 0} onClick={() => {this.clickVote(this.props.path, "up")}}><span role="img" aria-label="emoji">👍</span></button>
+            <span className="commentVotes">{" "}{this.props.votes + this.state.userVotes} {" "}</span>
+            <button className="vote-button" disabled={this.state.userVotes < 0} onClick={() => {this.clickVote(this.props.path, "down")}}><span role="img" aria-label="emoji">👎</span></button>
+        </div>
+      );
+  }
 
-//   clickVote = direction => {
-//     let { vote } = this.state
-//     direction === "up" ? vote++ : vote--;
-//     this.setState({ 
-//       vote
-//     });
-//     api.changeVotes(this.props.path, direction)
-//     .then(res => res.votes);
-//   };
-// }
+  clickVote = ((path, direction) => {
+    let { userVotes } = this.state
+    direction === "up" ? userVotes++ : userVotes--;
+        this.setState ({
+            userVotes
+        })
+    })
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+      changeVote: (path, direction) => {
+        dispatch(actions.changeVote(path, direction))
+      } 
+    };
+}
 
 // Votes.propTypes = {
 //   comments: pt.arrayOf(pt.object),
-//   loggedInUser: pt.string,
+//   user: pt.object,
 //   votes: pt.number
 // };
 
-// export default Votes;
+export default connect(mapDispatchToProps)(Votes);

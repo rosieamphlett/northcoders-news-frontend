@@ -28,7 +28,7 @@
 //     } else
 //     return (
 //       <div className="comments">
-//         {this.state.comments.map(comment => {
+//         {this.props.selectedComments.map(comment => {
 //           return (
 //             <div key={comment._id}>
 //               <Link to={`/users/${comment.created_by.username}`} className="username">{comment.created_by.username}:</Link><br/>

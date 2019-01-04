@@ -9,21 +9,32 @@ import "../stylez/App.css";
 
 import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
+import Nav from './Nav';
+import Login from "./Login";
+
 
 
 class Articles extends Component {
   render () {
-    return (
+    if (!this.props.loading) return (
+      <div>
+        <div className="navlinks">
+          <Nav />
+          <Login users={this.props.users}/>
+        </div>
       <div id='ArticleList'>
         {Object.keys(this.props.match.params).length !== 0 ? 
         this.mapArticles(this.props.articles.filter(article => article.belongs_to === this.props.match.params.topic)) 
         : this.mapArticles(this.props.articles)}
       </div>
-    );
+      </div>
+    )
+    else return (<p>loading...</p>)
   }
 
   componentDidMount () {
     this.props.fetchArticles();
+    this.props.fetchUsers()
   }
 
   mapArticles(articles) {
@@ -43,12 +54,16 @@ function mapDispatchToProps (dispatch) {
     fetchArticles: () => {
       dispatch(actions.fetchArticles());
     },
+    fetchUsers: () => {
+      dispatch(actions.fetchUsers());
+    }
   };
 }
 
 function MapStateToProps (state) {
   return {
     articles: state.articles,
+    users: state.users,
     loading: state.loading
   };
 }

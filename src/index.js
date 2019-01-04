@@ -24,7 +24,7 @@ ReactDOM.render(
             <Switch>
                 <Route exact path="/" component={Articles} />
                 <Route path="/topics/:topic" component={Articles} />
-                <Route path="/articles/:article_id" component={Article} />
+                <Route path="/articles/:article_id" component={Article}/>
                 {/* <Route path="/users/:id" component={User} />
                 <Route path="/*" component={Error} /> */}
             </Switch>

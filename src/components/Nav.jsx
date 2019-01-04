@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-// import AddArticle from './AddArticle';
 // const activeStyle = { color: "rgb(236, 109, 130)" };
 
 
@@ -16,4 +15,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav
+export default Nav;
