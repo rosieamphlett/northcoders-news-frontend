@@ -17,7 +17,6 @@ class Article extends React.Component {
   render () {
       let {loading, selectedArticle, selectedComments} = this.props
       if (loading === false) {
-        console.log(selectedComments)
         return (
         <div className="articlePage columns">
           <Login users={this.props.users} />
@@ -38,6 +37,7 @@ class Article extends React.Component {
                     <article key={i}>
                     <p>user: {comment.created_by.username}</p>
                     <p>comment: {comment.body}</p>
+                    <button onClick={this.handleDelete(selectedArticle._id, comment._id)}>delete me</button>
                     <Votes path={`/comments/${comment._id}`} votes={comment.votes} />
                     </article>)}
                 </article>
@@ -49,6 +49,12 @@ class Article extends React.Component {
         return <p> loading..</p>
     }
   }
+
+  handleDelete = (article_id, comment_id) => {
+    return () => {
+      this.props.deleteComment(article_id, comment_id)
+    }
+  };
 }
 
 function mapDispatchToProps (dispatch) {
@@ -61,6 +67,9 @@ function mapDispatchToProps (dispatch) {
     },
     fetchComments: function (id) {
       dispatch(actions.fetchComments(id))
+    },
+    deleteComment: function(article_id, comment_id) {
+      dispatch(actions.deleteComment(article_id, comment_id))
     }
   };
 }

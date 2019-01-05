@@ -4,6 +4,7 @@ const initialState = {
   articles: [],
   selectedArticle: {},
   selectedComments: [],
+  topics: [],
   loading: true,
   users: [],
   user: null,
@@ -39,6 +40,28 @@ function reducer (prevState = initialState, action) {
   if(action.type === types.LOGGED_IN_USER) {
     const newState = {...prevState}
     newState.user = action.payload
+    return newState;
+  }
+
+  //topics 
+  if(action.type === types.FETCH_TOPICS_REQUEST) {
+    const newState = {...prevState}
+    newState.loading = true;
+    return newState;
+  }
+
+  if (action.type === types.FETCH_TOPICS_SUCCESS) {
+    const newState = {...prevState}
+    newState.topics = action.payload;
+    newState.loading = false;
+    return newState;
+  }
+
+  if (action.type === types.FETCH_TOPICS_ERROR) {
+    const newState = {...prevState}
+    newState.topics = [];
+    newState.loading = false;
+    newState.error = action.error;
     return newState;
   }
 
@@ -82,6 +105,29 @@ function reducer (prevState = initialState, action) {
     const newState = {...prevState};
     newState.articles = [];
     newState.selectedArticle = {};
+    newState.loading = false;
+    newState.error = action.error;
+    return newState;
+  }
+
+  if (action.type === types.DELETE_COMMENT_REQUEST) {
+    const newState = {...prevState}
+    newState.loading = true;
+    return newState;
+  }
+
+  if (action.type === types.DELETE_COMMENT_SUCCESS) {
+    const newState = {...prevState}
+    newState.selectedComments = action.payload
+    newState.loading = false;
+    return newState;
+  }
+
+  if (action.type === types.ADD_COMMENT_ERROR) {
+    const newState = {...prevState};
+    newState.articles = [];
+    newState.selectedArticle = {};
+    newState.selectedComments = {};
     newState.loading = false;
     newState.error = action.error;
     return newState;

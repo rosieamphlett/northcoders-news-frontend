@@ -19,7 +19,7 @@ class Articles extends Component {
     if (!this.props.loading) return (
       <div>
         <div className="navlinks">
-          <Nav />
+          <Nav topics={this.props.topics}/>
           <Login users={this.props.users}/>
         </div>
       <div id='ArticleList'>
@@ -35,6 +35,7 @@ class Articles extends Component {
   componentDidMount () {
     this.props.fetchArticles();
     this.props.fetchUsers();
+    this.props.fetchTopics()
   }
 
   mapArticles(articles) {
@@ -56,7 +57,10 @@ function mapDispatchToProps (dispatch) {
     },
     fetchUsers: () => {
       dispatch(actions.fetchUsers());
-    }
+    },
+    fetchTopics: () => {
+      dispatch(actions.fetchTopics())
+    } 
   };
 }
 
@@ -64,6 +68,7 @@ function MapStateToProps (state) {
   return {
     articles: state.articles,
     users: state.users,
+    topics: state.topics,
     loading: state.loading
   };
 }

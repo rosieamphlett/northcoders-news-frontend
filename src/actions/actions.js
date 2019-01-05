@@ -38,6 +38,39 @@ export function fetchArticlesError (error) {
   };
 }
 
+export function fetchTopics () {
+  return function (dispatch) {
+    dispatch(fetchTopicsRequest());
+    axios.get(`${url}/topics`)
+    .then(res => {
+      dispatch(fetchTopicsSuccess(res.data.topics))
+    })
+    .catch(err => {
+      dispatch(fetchTopicsError(err))
+    })
+  }
+}
+
+export function fetchTopicsRequest () {
+  return {
+      type: types.FETCH_TOPICS_REQUEST
+  };
+}
+
+export function fetchTopicsSuccess (topics) {
+  return {
+      type: types.FETCH_TOPICS_SUCCESS,
+      payload: topics
+  };
+}
+
+export function fetchTopicsError (error) {
+  return {
+      type: types.FETCH_TOPICS_ERROR,
+      payload: error
+  };
+}
+
 export function fetchUsers () {
   return function (dispatch) {
     dispatch(fetchUsersRequest());
@@ -185,6 +218,42 @@ export function postNewCommentSuccess (comment) {
 export function postNewCommentError (error) {
   return {
       type: types.ADD_COMMENT_ERROR,
+      payload: error
+  };
+}
+
+//delete comment
+export function deleteComment(article_id, comment_id) {
+  return function (dispatch) {
+    dispatch(deleteCommentRequest(comment_id));
+    axios.delete(`${url}/comments/${comment_id}`)
+    .then(res => {
+      deleteCommentSuccess(res.data.msg)
+    })
+    .then(() => dispatch(fetchComments(article_id)))
+    .catch(err => {
+      dispatch(deleteCommentError(err))
+    })
+  }
+}
+
+export function deleteCommentRequest (id) {
+  return {
+      type: types.DELETE_COMMENT_REQUEST,
+      id: id
+  };
+}
+
+export function deleteCommentSuccess (comment) {
+  return {
+      type: types.DELETE_COMMENT_SUCCESS,
+      payload: comment 
+  };
+}
+
+export function deleteCommentError (error) {
+  return {
+      type: types.DELETE_COMMENT_ERROR,
       payload: error
   };
 }
