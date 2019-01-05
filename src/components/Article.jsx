@@ -25,7 +25,6 @@ class Article extends React.Component {
                     <h1>{selectedArticle.title}</h1>
                     <img src={chooseImg(selectedArticle.belongs_to)} alt="article-pic" />
                     <h4>{selectedArticle.body}</h4>
-                    {/* <p>By: {selectedArticle.created_by.username}</p> */}
                     <p>Time: {selectedArticle.created_at}</p>
                     <Votes path={`/articles/${selectedArticle._id}`} votes={selectedArticle.votes} />
                 </article>

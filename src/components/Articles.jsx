@@ -5,8 +5,7 @@ import "../stylez/Articles.css";
 import "../stylez/App.css";
 // import * as api from '../api';
 // import moment from 'moment';
-// import pt from 'prop-types'
-
+import pt from 'prop-types';
 import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
 import Nav from './Nav';
@@ -72,5 +71,13 @@ function MapStateToProps (state) {
     loading: state.loading
   };
 }
+
+Articles.propTypes = {
+  loading: pt.bool.isRequired,
+  fetchArticles: pt.func.isRequired,
+  fetchUsers: pt.func.isRequired,
+  fetchTopics: pt.func.isRequired,
+  match: pt.object.isRequired
+};
 
 export default connect(MapStateToProps, mapDispatchToProps)(Articles);

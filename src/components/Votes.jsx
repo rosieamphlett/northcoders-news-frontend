@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import '../stylez/Comments.css';
-// import pt from 'prop-types';
+import pt from 'prop-types';
 import {connect} from 'react-redux';
 import * as actions from "../actions/actions.js";
 
@@ -45,10 +45,10 @@ function MapStateToProps (state) {
     };
   }
 
-// Votes.propTypes = {
-//   comments: pt.arrayOf(pt.object),
-//   user: pt.object,
-//   votes: pt.number
-// };
+Votes.propTypes = {
+  comments: pt.arrayOf(pt.object),
+  user: pt.object,
+  votes: pt.number
+};
 
 export default connect(MapStateToProps, mapDispatchToProps)(Votes);

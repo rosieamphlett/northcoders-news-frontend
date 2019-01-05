@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
+import pt from 'prop-types';
 const activeStyle = { color: "rgb(236, 109, 130)" };
 
 class Nav extends Component {
@@ -15,6 +16,9 @@ class Nav extends Component {
     }
 }
 
+Nav.propTypes = {
+    topics: pt.array.isRequired,
+}
 
 
 export default Nav;

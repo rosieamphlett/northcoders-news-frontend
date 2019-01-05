@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import * as actions from '../actions/actions';
 
 class AddComment extends Component {
@@ -51,9 +51,10 @@ function MapStateToProps (state) {
     };
 }
 
-// AddComment.propTypes = {
-//   article_id: PropTypes.string.isRequired,
-//   postComment: PropTypes.func.isRequired
-// };
+AddComment.propTypes = {
+  article_id: PropTypes.string.isRequired,
+  user: PropTypes.object,
+  selectedComments: PropTypes.array
+}
 
 export default connect(MapStateToProps, mapDispatchToProps)(AddComment);
