@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { NavLink } from "react-router-dom";
 import pt from 'prop-types';
-const activeStyle = { color: "rgb(236, 109, 130)" };
+import {history} from '../index'
 
 class Nav extends Component {
+    onChange = (e) => {
+        history.push(`${e.target.value}`)  
+    }
+
     render() {
         return (
             <div>
                 <nav className="navbar">
-                  {this.props.topics.map((topic, i) => (
-                  <NavLink to={`/topics/${topic.slug}`} activeStyle={activeStyle} key={i}>{" | " } {topic.title} {" | "}</NavLink>))}
+                <select className="topics" onChange={this.onChange}>
+                    <option value="/">Home</option>
+                    {this.props.topics.map((topic, i) => (
+                  <option value={`/topics/${topic.slug}`} key={i}>{topic.title}</option>))}
+                </select>
                 </nav>
             </div>
         );

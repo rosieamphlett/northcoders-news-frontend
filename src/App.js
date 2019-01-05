@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Link to="/" className="App-title"><h1>Northcoders News</h1></Link><br/>
+          <Link to="/"><img className="title-img" src= {require('./stylez/nc-news.png')} alt="logo"/></Link>
         </header>
         
         {this.props.children}

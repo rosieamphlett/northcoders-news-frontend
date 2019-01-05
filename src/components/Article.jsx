@@ -6,12 +6,14 @@ import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
 import Login from './Login';
 import AddComment from './AddComment';
+import Nav from './Nav';
 
 class Article extends React.Component {
   componentDidMount () {
     this.props.fetchArticlesByID(this.props.match.params.article_id);
     this.props.fetchComments(this.props.match.params.article_id);
     this.props.fetchUsers();
+    this.props.fetchTopics();
   }
 
   render () {
@@ -19,6 +21,7 @@ class Article extends React.Component {
       if (loading === false) {
         return (
         <div className="articlePage columns">
+          <Nav topics={this.props.topics}/>
           <Login users={this.props.users} />
             <div>
                 <article>
@@ -69,7 +72,10 @@ function mapDispatchToProps (dispatch) {
     },
     deleteComment: function(article_id, comment_id) {
       dispatch(actions.deleteComment(article_id, comment_id))
-    }
+    },
+    fetchTopics: () => {
+      dispatch(actions.fetchTopics())
+    } 
   };
 }
 
@@ -79,7 +85,8 @@ function MapStateToProps (state) {
     selectedComments: state.selectedComments,
     loading: state.loading,
     users: state.users,
-    user: state.user
+    user: state.user,
+    topics: state.topics
   };
 }
 

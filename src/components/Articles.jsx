@@ -3,25 +3,24 @@ import { Link } from "react-router-dom";
 import chooseImg from '../helpers/index';
 import "../stylez/Articles.css";
 import "../stylez/App.css";
-// import * as api from '../api';
 // import moment from 'moment';
 import pt from 'prop-types';
 import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
 import Nav from './Nav';
 import Login from "./Login";
-
-
+import '../stylez/Articles.css';
 
 class Articles extends Component {
   render () {
+    console.log(this.props.articles)
     if (!this.props.loading) return (
       <div>
         <div className="navlinks">
           <Nav topics={this.props.topics}/>
           <Login users={this.props.users}/>
         </div>
-      <div id='ArticleList'>
+      <div className='ArticleList'>
         {Object.keys(this.props.match.params).length !== 0 ? 
         this.mapArticles(this.props.articles.filter(article => article.belongs_to === this.props.match.params.topic)) 
         : this.mapArticles(this.props.articles)}
@@ -39,12 +38,15 @@ class Articles extends Component {
 
   mapArticles(articles) {
     return articles.map((article, i) => 
-    <article key={i}>
+    <article className="each-article"key={i}>
+      <div className="article-content">
       <Link to={`/articles/${article._id}`}>
-        <h2>{article.title}</h2></Link>
-        <img src={chooseImg(article.belongs_to)} alt="article-pic" />
-        <p>by {article.created_by.username}</p>
-        <p>{article.votes} votes</p>
+        <h2 className="article-title">{article.title}</h2>
+        <img className="article-pic" src={chooseImg(article.belongs_to)} alt="article-pic" />
+        <p className="textSnippet">{article.body.slice(0, 150)}...</p>
+        <span className="username">Posted by <span className="user">{article.created_by.username}</span></span>
+        </Link>
+        </div>
   </article>)
   }
 }

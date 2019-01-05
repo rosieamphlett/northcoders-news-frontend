@@ -15,7 +15,7 @@ import reducer from './reducers/reducer';
 import './stylez/index.css';
 
 const store = createStore(reducer, applyMiddleware(thunk));
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 
 ReactDOM.render(
 <Provider store={store}>

@@ -10,16 +10,18 @@ class Login extends Component {
       return (
         <div>
           {!this.props.user ?
-            <div><p className="login">Log In Below:</p>
-                <select className="select" onChange={this.selectUser}>
-                <option>Select a User</option>
+            <div className="full-login">
+                <select className="login" onChange={this.selectUser}>
+                <option>Log In Here</option>
                 {this.props.users.map(user => (
                     <option className="select-options" value={user._id} name={user.name} key={user._id}>
                     {user.name}</option>)) 
                 }</select>
             </div>
-            : <div><p className="logged-in">Logged in as {this.props.user.name}</p>
-                <button className="select" onClick={this.logOut}>Log out</button>
+            : <div className="login-with-user">
+              <img className="logged-in-pic"src={this.props.user.avatar_url} onError={event => event.target.src="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"} alt="user-pic" />
+              <p className="logged-in-text">{this.props.user.name}</p>
+                <button className="log-out" onClick={this.logOut}>Log out</button>
             </div>}
         </div>
       );
