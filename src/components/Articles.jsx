@@ -13,7 +13,6 @@ import '../stylez/Articles.css';
 
 class Articles extends Component {
   render () {
-    console.log(this.props.articles)
     if (!this.props.loading) return (
       <div>
         <div className="navlinks">
@@ -27,7 +26,10 @@ class Articles extends Component {
       </div>
       </div>
     )
-    else return (<p>loading...</p>)
+    else return (<div className="loading">
+    <p>Loading...</p>
+    <img src="https://thumbs.gfycat.com/CheerfulGreatAmurstarfish-max-1mb.gif" className="loading-spinner" alt="loading"></img>
+    </div>)
   }
 
   componentDidMount () {

@@ -1,4 +1,5 @@
 import * as types from '../actions/types';
+import moment from 'moment';
 
 const initialState = {
   articles: [],
@@ -118,7 +119,8 @@ function reducer (prevState = initialState, action) {
 
   if (action.type === types.DELETE_COMMENT_SUCCESS) {
     const newState = {...prevState}
-    newState.selectedComments = action.payload
+    newState.selectedComments = action.payload.sort((a, b) => {
+      return moment(a.created_at).diff(moment(b.created_at), "seconds")})
     newState.loading = false;
     return newState;
   }
@@ -142,7 +144,8 @@ function reducer (prevState = initialState, action) {
 
   if (action.type === types.ADD_COMMENT_SUCCESS) {
     const newState = {...prevState}
-    newState.selectedComments = action.payload
+    newState.selectedComments = action.payload.sort((a, b) => {
+      return moment(a.created_at).diff(moment(b.created_at), "seconds")})
     newState.loading = false;
     return newState;
   }
@@ -165,7 +168,8 @@ function reducer (prevState = initialState, action) {
 
   if (action.type === types.FETCH_COMMENTS_SUCCESS) {
     const newState = {...prevState};
-    newState.selectedComments = action.payload;
+    newState.selectedComments = action.payload.sort((a, b) => {
+      return moment(a.created_at).diff(moment(b.created_at), "seconds")})
     newState.loading = false;
     return newState;
   }

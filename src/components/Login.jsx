@@ -20,7 +20,7 @@ class Login extends Component {
             </div>
             : <div className="login-with-user">
               <img className="logged-in-pic"src={this.props.user.avatar_url} onError={event => event.target.src="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"} alt="user-pic" />
-              <p className="logged-in-text">{this.props.user.name}</p>
+              <div className="logged-in-text">{this.props.user.name}</div>
                 <button className="log-out" onClick={this.logOut}>Log out</button>
             </div>}
         </div>

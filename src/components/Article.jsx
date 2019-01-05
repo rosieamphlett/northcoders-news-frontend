@@ -7,6 +7,9 @@ import * as actions from '../actions/actions';
 import Login from './Login';
 import AddComment from './AddComment';
 import Nav from './Nav';
+import moment from 'moment';
+import '../stylez/Article.css';
+import '../stylez/App.css'
 
 class Article extends React.Component {
   componentDidMount () {
@@ -18,37 +21,45 @@ class Article extends React.Component {
 
   render () {
       let {loading, selectedArticle, selectedComments} = this.props
-      if (loading === false) {
+      if (!loading) {
         return (
-        <div className="articlePage columns">
+        <div>
           <Nav topics={this.props.topics}/>
           <Login users={this.props.users} />
-            <div>
-                <article>
-                    <h1>{selectedArticle.title}</h1>
-                    <img src={chooseImg(selectedArticle.belongs_to)} alt="article-pic" />
-                    <h4>{selectedArticle.body}</h4>
-                    <p>Time: {selectedArticle.created_at}</p>
-                    <Votes path={`/articles/${selectedArticle._id}`} votes={selectedArticle.votes} />
+          <div className="content">
+            <div className="article-and-comments">
+                <article className="article">
+                    <h1 className="article-title">{selectedArticle.title}</h1>
+                    <img className="article-pic" src={chooseImg(selectedArticle.belongs_to)} alt="article-pic" />
+                    <h4 className="article-body">{selectedArticle.body}</h4>
+                    <p className="timestamp">Posted {moment(selectedArticle.created_at).startOf().fromNow().toString()}</p>
+                    <Votes className="article-votes" path={`/articles/${selectedArticle._id}`} votes={selectedArticle.votes} />
                 </article>
             <div className="voteAndComment">
             </div>
-                <article>
-                    <h1>Comments </h1>
+                    <h1 className="comments-title">{selectedComments.length} Comments</h1>
+                    <article className="comments">
                     {selectedComments.map((comment, i) => 
-                    <article key={i}>
-                    <p>user: {comment.created_by.username}</p>
-                    <p>comment: {comment.body}</p>
-                    <button onClick={this.handleDelete(selectedArticle._id, comment._id)}>delete me</button>
-                    <Votes path={`/comments/${comment._id}`} votes={comment.votes} />
-                    </article>)}
+                    <article className="each-comment"key={i}>
+                    <img className="comment-user-pic" src={comment.created_by.avatar_url} onError={event => event.target.src="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"} alt="user-pic" />
+                    <div className="comment-content">
+                    <span className="comment-username">{comment.created_by.username}</span>
+                    <span className="timestamp"> - {moment(comment.created_at).startOf().fromNow().toString()}</span>
+                    <span>{(this.props.user && this.props.user._id === comment.created_by._id) && <button className="deleteButton"onClick={this.handleDelete(selectedArticle._id, comment._id)}>delete me</button>}</span>
+                    <p className="comment-body">{comment.body}</p>
+                    <div className="comment-votes">{this.props.user && <Votes className="comment-votes"path={`/comments/${comment._id}`} votes={comment.votes} />}</div>
+                    </div></article>)}
                 </article>
             </div>
-            <AddComment article_id={this.props.match.params.article_id}/> 
+            <AddComment article_id={this.props.match.params.article_id}/>
+        </div>
         </div>
         );
     } else {
-        return <p> loading..</p>
+      return <div className="loading">
+          <p>Loading...</p>
+          <img src="https://thumbs.gfycat.com/CheerfulGreatAmurstarfish-max-1mb.gif" className="loading-spinner" alt="loading"></img>
+          </div>
     }
   }
 

@@ -1,0 +1,111 @@
+.content{
+    display: flex;
+    align-items: center;
+    flex-flow: column wrap
+}
+
+.article-and-comments {
+    margin-top: 3%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    background: whitesmoke;
+    border-radius: .5%;
+}
+
+.article-body {
+    text-align: center;
+    font-size: 15px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.article-title {
+    color: rgb(193, 0, 46);
+    font-size: 24px;
+}
+
+.article-title:hover {
+    cursor: pointer
+}
+
+.article-pic {
+    width: 50%;
+}
+
+.article {
+    border-bottom: 1px solid rgba(78, 78, 78, 0.5);
+    padding-bottom: 7%;
+}
+
+.timestamp {
+    font-size: 14px;
+    font-style: italic;
+}
+
+.vote-button {
+    background-color: whitesmoke;
+    border: none;
+    font-size: 16px;
+    cursor: pointer
+}
+
+.log-in-to-vote {
+    color: rgb(193, 0, 46);
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+/* comments */
+
+.comments {
+    color: rgb(193, 0, 46);
+    border-top: 1px solid rgba(78, 78, 78, 0.5);
+}
+
+.each-comment {
+    text-align: left;
+    border-bottom: 1px solid rgba(78, 78, 78, 0.5);
+    padding-left: 1%;
+    padding-bottom: 1%;
+    background: whitesmoke;
+}
+
+.comment-content {
+    margin-left: 7%;
+    transform: translateY(-30%)
+}
+
+.comment-username {
+    font-weight: bold;
+}
+
+.comment-body {
+    color: black;
+}
+
+.comments-title {
+    font-size: 20px;
+}
+
+.comment-user-pic {
+    max-width: 5%;
+    margin-left: 1%;
+    transform: translateY(60%)
+}
+
+.deleteButton {
+    background-color: whitesmoke;
+    border: none;
+    font-size: 12px;
+    color: black;
+    font-weight: bolder;
+    cursor: pointer;
+    margin-left: 1%;  
+}
+
+
+
+

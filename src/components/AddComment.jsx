@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import * as actions from '../actions/actions';
+import '../stylez/AddComment.css'
 
 class AddComment extends Component {
   state = {
@@ -9,13 +10,16 @@ class AddComment extends Component {
   };
 
   render() {
-    return (
-    <div>
+    if(this.props.user) {
+      return (
+    <div className="add-comment">
+      <h2 className="add-a-comment-title">Add a comment</h2>
           <textarea className="post-comment-box" placeholder="Write your comment here..." cols="50"
               rows="5" type="text" value={this.state.commentBody} onChange={this.addCommentText}/><br/>
-          <button className="select" onClick={() => this.addComment(this.props.article_id, this.state.commentBody)
-            }>Post My Comment!</button><br/><br/>
+          <button className="post-btn" onClick={() => this.addComment(this.props.article_id, this.state.commentBody)
+            }>Post</button><br/><br/>
     </div>);
+    } else return <p className="add-comment-login">Please log in to add a comment</p>
   }
 
   addCommentText = event => {
