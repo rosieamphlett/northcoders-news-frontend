@@ -12,8 +12,7 @@ export function fetchArticles () {
           dispatch(fetchArticlesSuccess(res.data.articles));
       })
       .catch(err => {
-          console.log(err);
-          dispatch(fetchArticlesError(err));
+          dispatch(fetchArticlesError(err.response.data));
       });
   };
 }
@@ -46,7 +45,7 @@ export function fetchTopics () {
       dispatch(fetchTopicsSuccess(res.data.topics))
     })
     .catch(err => {
-      dispatch(fetchTopicsError(err))
+      dispatch(fetchTopicsError(err.response.data))
     })
   }
 }
@@ -79,8 +78,7 @@ export function fetchUsers () {
       dispatch(fetchUsersSuccess(res.data.users))
     })
     .catch(err => {
-      console.log(err);
-      dispatch(fetchUsersError(err))
+      dispatch(fetchUsersError(err.response.data))
     })
   }
 }
@@ -122,7 +120,7 @@ export function changeVote (path, direction) {
       dispatch(changeVoteSuccess(res.data.article.votes))
     })
     .catch(err => {
-      dispatch(changeVoteError(err))
+      dispatch(changeVoteError(err.response.data))
     })
   }
 }
@@ -158,8 +156,7 @@ export function fetchArticlesByID (id) {
           dispatch(fetchArticlesByIDSuccess(res.data.article[0]));
       })
       .catch(err => {
-          console.log(err);
-          dispatch(fetchArticlesByIDError(err));
+          dispatch(fetchArticlesByIDError(err.response.data));
       });
   };
 }
@@ -190,12 +187,11 @@ export function postNewComment (article_id, comment) {
     dispatch(postNewCommentRequest(article_id, comment));
     axios.post(`${url}/articles/${article_id}/comments`, comment)
     .then(res => {
-      console.log(`*****`,res)
       postNewCommentSuccess(res.data.comment)
     })
     .then(() => dispatch(fetchComments(article_id)))
     .catch(err => {
-      dispatch(postNewCommentError(err))
+      dispatch(postNewCommentError(err.response.data))
     })
   }  
 }
@@ -232,7 +228,7 @@ export function deleteComment(article_id, comment_id) {
     })
     .then(() => dispatch(fetchComments(article_id)))
     .catch(err => {
-      dispatch(deleteCommentError(err))
+      dispatch(deleteCommentError(err.response.data))
     })
   }
 }
@@ -267,8 +263,7 @@ export function fetchComments (id) {
           dispatch(fetchCommentsSuccess(res.data.comment));
       })
       .catch(err => {
-          console.log(err);
-          dispatch(fetchCommentsError(err));
+          dispatch(fetchCommentsError(err.response.data));
       });
   };
 }

@@ -8,8 +8,8 @@ import Login from './Login';
 import AddComment from './AddComment';
 import Nav from './Nav';
 import moment from 'moment';
+import { Redirect } from "react-router-dom";
 import '../stylez/Article.css';
-import '../stylez/App.css'
 
 class Article extends React.Component {
   componentDidMount () {
@@ -20,7 +20,12 @@ class Article extends React.Component {
   }
 
   render () {
-      let {loading, selectedArticle, selectedComments} = this.props
+      let {loading, selectedArticle, selectedComments, error} = this.props
+      if (error) {
+        const pathname = `/error`
+        const state = error
+      return <Redirect to={{pathname, state}}></Redirect>
+      } else
       if (!loading) {
         return (
         <div>
@@ -97,7 +102,8 @@ function MapStateToProps (state) {
     loading: state.loading,
     users: state.users,
     user: state.user,
-    topics: state.topics
+    topics: state.topics,
+    error: state.error
   };
 }
 

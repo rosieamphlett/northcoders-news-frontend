@@ -1,15 +1,20 @@
 import React, { Component } from "react";
-// import '../stylez/App.css'
 import pt from "prop-types";
 import * as actions from '../actions/actions';
 import {connect} from 'react-redux';
-
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   render() {
+    let {user, error} = this.props
+    if (error) {
+      const pathname = `/error`
+      const state = error
+    return <Redirect to={{pathname, state}}></Redirect>
+    } else
       return (
         <div>
-          {!this.props.user ?
+          {!user ?
             <div className="full-login">
                 <select className="login" onChange={this.selectUser}>
                 <option>Log In Here</option>
@@ -19,8 +24,8 @@ class Login extends Component {
                 }</select>
             </div>
             : <div className="login-with-user">
-              <img className="logged-in-pic"src={this.props.user.avatar_url} onError={event => event.target.src="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"} alt="user-pic" />
-              <div className="logged-in-text">{this.props.user.name}</div>
+              <img className="logged-in-pic"src={user.avatar_url} onError={event => event.target.src="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"} alt="user-pic" />
+              <div className="logged-in-text">{user.name}</div>
                 <button className="log-out" onClick={this.logOut}>Log out</button>
             </div>}
         </div>
@@ -51,6 +56,7 @@ function mapDispatchToProps (dispatch) {
 function MapStateToProps (state) {
     return {
       user: state.user,
+      error: state.error
     };
 }
 

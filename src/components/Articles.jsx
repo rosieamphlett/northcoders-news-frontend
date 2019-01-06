@@ -2,27 +2,31 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import chooseImg from '../helpers/index';
 import "../stylez/Articles.css";
-import "../stylez/App.css";
-// import moment from 'moment';
 import pt from 'prop-types';
 import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
 import Nav from './Nav';
 import Login from "./Login";
-import '../stylez/Articles.css';
+import { Redirect } from "react-router-dom";
 
 class Articles extends Component {
   render () {
-    if (!this.props.loading) return (
+    let {error, loading, topics, users, articles } = this.props
+    if (error) {
+      const pathname = `/error`
+      const state = error
+    return <Redirect to={{pathname, state}}></Redirect>
+    } else
+    if (!loading) return (
       <div>
         <div className="navlinks">
-          <Nav topics={this.props.topics}/>
-          <Login users={this.props.users}/>
+          <Nav topics={topics}/>
+          <Login users={users}/>
         </div>
       <div className='ArticleList'>
         {Object.keys(this.props.match.params).length !== 0 ? 
-        this.mapArticles(this.props.articles.filter(article => article.belongs_to === this.props.match.params.topic)) 
-        : this.mapArticles(this.props.articles)}
+        this.mapArticles(articles.filter(article => article.belongs_to === this.props.match.params.topic)) 
+        : this.mapArticles(articles)}
       </div>
       </div>
     )
@@ -72,7 +76,8 @@ function MapStateToProps (state) {
     articles: state.articles,
     users: state.users,
     topics: state.topics,
-    loading: state.loading
+    loading: state.loading,
+    error: state.error
   };
 }
 

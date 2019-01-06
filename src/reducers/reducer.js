@@ -33,7 +33,7 @@ function reducer (prevState = initialState, action) {
     const newState = {...prevState}
     newState.users = [];
     newState.loading = false;
-    newState.error = action.error;
+    newState.error = action.payload;
     return newState;
   }
 
@@ -62,7 +62,7 @@ function reducer (prevState = initialState, action) {
     const newState = {...prevState}
     newState.topics = [];
     newState.loading = false;
-    newState.error = action.error;
+    newState.error = action.payload;
     return newState;
   }
 
@@ -84,7 +84,7 @@ function reducer (prevState = initialState, action) {
     const newState = {...prevState}
     newState.articles = [];
     newState.loading = false;
-    newState.error = action.error;
+    newState.error = action.payload;
     return newState;
   }
 
@@ -107,7 +107,7 @@ function reducer (prevState = initialState, action) {
     newState.articles = [];
     newState.selectedArticle = {};
     newState.loading = false;
-    newState.error = action.error;
+    newState.error = action.payload;
     return newState;
   }
 
@@ -131,7 +131,7 @@ function reducer (prevState = initialState, action) {
     newState.selectedArticle = {};
     newState.selectedComments = {};
     newState.loading = false;
-    newState.error = action.error;
+    newState.error = action.payload;
     return newState;
   }
 
@@ -156,7 +156,7 @@ function reducer (prevState = initialState, action) {
     newState.selectedArticle = {};
     newState.selectedComments = {};
     newState.loading = false;
-    newState.error = action.error;
+    newState.error = action.payload;
     return newState;
   }
 
@@ -180,7 +180,7 @@ function reducer (prevState = initialState, action) {
     newState.selectedArticle = {};
     newState.selectedComments = {};
     newState.loading = false;
-    newState.error = action.error;
+    newState.error = action.payload;
     return newState;
   }
 

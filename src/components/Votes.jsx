@@ -1,29 +1,36 @@
 import React, { Component } from "react";
 import pt from 'prop-types';
 import {connect} from 'react-redux';
+import { Redirect } from "react-router-dom";
 import * as actions from "../actions/actions.js";
 import '../stylez/Article.css'
 
 class Votes extends Component {
     state = {
-        userVotes: 0,
+        userVotes: 0
     }
 
   render() {
-      if (this.props.user) {
+    let {error, user, path, votes} = this.props
+    if (error) {
+        const pathname = `/error`
+        const state = error
+      return <Redirect to={{pathname, state}}></Redirect>
+      } else
+      if (user) {
         return (
             <div>
-                <button className="vote-button" disabled={this.state.userVotes > 0} onClick={() => {this.clickVote(this.props.path, "up")}}><span role="img" aria-label="emoji">👍</span></button>
-                <span>{" "}{this.props.votes + this.state.userVotes} {" "}</span>
-                <button className="vote-button" disabled={this.state.userVotes < 0} onClick={() => {this.clickVote(this.props.path, "down")}}><span role="img" aria-label="emoji">👎</span></button>
+                <button className="vote-button" disabled={this.state.userVotes > 0} onClick={() => {this.clickVote(path, "up")}}><span role="img" aria-label="emoji">👍</span></button>
+                <span>{" "}{votes + this.state.userVotes} {" "}</span>
+                <button className="vote-button" disabled={this.state.userVotes < 0} onClick={() => {this.clickVote(path, "down")}}><span role="img" aria-label="emoji">👎</span></button>
             </div>
         );
       } 
-    else if(/comments/g.test(this.props.path) && !this.props.user) {
+    else if(/comments/g.test(path) && !user) {
         return(<p>{''}</p>)
     }
     else {
-        return <p className="log-in-to-vote">{this.props.votes} Votes<br /> Please log in to vote on articles and comments</p>
+        return <p className="log-in-to-vote">{votes} Votes<br /> Please log in to vote on articles and comments</p>
     }
   }
 
@@ -46,7 +53,8 @@ function mapDispatchToProps (dispatch) {
 
 function MapStateToProps (state) {
     return {
-      user: state.user
+      user: state.user,
+      error: state.error
     };
   }
 

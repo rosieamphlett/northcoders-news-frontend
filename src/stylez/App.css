@@ -116,3 +116,12 @@ p {
   text-align: center;
   color: white;
 }
+
+.error {
+  text-align: center;
+  color: white;
+}
+
+.error-pic {
+  max-width: 20%;
+}
