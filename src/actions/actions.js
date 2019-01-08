@@ -117,7 +117,9 @@ export function changeVote (path, direction) {
     dispatch(changeVoteRequest(path, direction));
     axios.put(`${url}${path}?vote=${direction}`)
     .then(res => {
-      dispatch(changeVoteSuccess(res.data.article.votes))
+      dispatch((/comments/g.test(path) ? 
+        changeVoteSuccess(res.data.comment.votes) 
+          : changeVoteSuccess(res.data.article.votes)))
     })
     .catch(err => {
       dispatch(changeVoteError(err.response.data))
@@ -289,7 +291,39 @@ export function fetchCommentsError (error) {
   };
 }
 
+export function fetchUserId (user_id) {
+  return function (dispatch) {
+    dispatch(fetchUserIdRequest(user_id))
+    axios.get(`${url}/users/${user_id}`)
+    .then(res => {
+      dispatch(fetchUserIdSuccess(res.data.user[0]))
+    })
+    .catch(err => {
+      dispatch(fetchUserIdError(err.response.data))
+    })
+  }
+}
 
+export function fetchUserIdRequest (id) {
+  return {
+      type: types.FETCH_USERID_REQUEST,
+      id: id
+  };
+}
+
+export function fetchUserIdSuccess (user_info) {
+  return {
+      type: types.FETCH_USERID_SUCCESS,
+      payload: user_info
+  };
+}
+
+export function fetchUserIdError (error) {
+  return {
+      type: types.FETCH_USERID_ERROR,
+      payload: error
+  };
+}
 
 
 

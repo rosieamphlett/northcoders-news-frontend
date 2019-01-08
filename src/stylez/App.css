@@ -28,7 +28,7 @@ p {
 
 .full-login {
   position: absolute;
-  right: 5%;
+  right: 8%;
   top: 6%;
   max-width: 10%;
   border: 1px solid rgb(32, 32, 32);
@@ -69,12 +69,16 @@ p {
   width: 15%;
 }
 
+a {
+  text-decoration: none;
+}
+
 .logged-in-pic {
   max-width: 32%;
   position: absolute;
-  right: 0px;
-  top: 10%;
-  transform: translate(30%, -8%)
+  right: 0%;
+  top: 30%;
+  transform: translate(50%,-8%);
 }
 
 .log-out {
@@ -124,4 +128,15 @@ p {
 
 .error-pic {
   max-width: 20%;
+}
+
+.user-summary {
+  color: rgb(193, 0, 46);
+  background: whitesmoke;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  text-align: center;
+  border: 2px solid rgb(193, 0, 46)
 }

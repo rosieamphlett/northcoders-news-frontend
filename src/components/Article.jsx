@@ -8,7 +8,7 @@ import Login from './Login';
 import AddComment from './AddComment';
 import Nav from './Nav';
 import moment from 'moment';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import '../stylez/Article.css';
 
 class Article extends React.Component {
@@ -37,7 +37,10 @@ class Article extends React.Component {
                     <h1 className="article-title">{selectedArticle.title}</h1>
                     <img className="article-pic" src={chooseImg(selectedArticle.belongs_to)} alt="article-pic" />
                     <h4 className="article-body">{selectedArticle.body}</h4>
-                    <p className="timestamp">Posted {moment(selectedArticle.created_at).startOf().fromNow().toString()}</p>
+                    {selectedArticle.created_by && 
+                        <p className="timestamp">
+                          Posted {moment(selectedArticle.created_at).startOf().fromNow().toString()} by
+                          <Link to={`/users/${selectedArticle.created_by.username}`}> {selectedArticle.created_by.username}</Link></p>}
                     <Votes className="article-votes" path={`/articles/${selectedArticle._id}`} votes={selectedArticle.votes} />
                 </article>
             <div className="voteAndComment">
@@ -46,14 +49,15 @@ class Article extends React.Component {
                     <article className="comments">
                     {selectedComments.map((comment, i) => 
                     <article className="each-comment"key={i}>
-                    <img className="comment-user-pic" src={comment.created_by.avatar_url} onError={event => event.target.src="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"} alt="user-pic" />
-                    <div className="comment-content">
-                    <span className="comment-username">{comment.created_by.username}</span>
-                    <span className="timestamp"> - {moment(comment.created_at).startOf().fromNow().toString()}</span>
-                    <span>{(this.props.user && this.props.user._id === comment.created_by._id) && <button className="deleteButton"onClick={this.handleDelete(selectedArticle._id, comment._id)}>delete me</button>}</span>
-                    <p className="comment-body">{comment.body}</p>
-                    <div className="comment-votes">{this.props.user && <Votes className="comment-votes"path={`/comments/${comment._id}`} votes={comment.votes} />}</div>
-                    </div></article>)}
+                      <Link to={`/users/${comment.created_by.username}`}><img className="comment-user-pic" src={comment.created_by.avatar_url} onError={event => event.target.src="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"} alt="user-pic" /></Link>
+                        <div className="comment-content">
+                        <Link to={`/users/${comment.created_by.username}`}><span className="comment-username">{comment.created_by.username}</span></Link>
+                          <span className="timestamp"> - {moment(comment.created_at).startOf().fromNow().toString()}</span>
+                          <span>{(this.props.user && this.props.user._id === comment.created_by._id) && <button className="deleteButton"onClick={this.handleDelete(selectedArticle._id, comment._id)}>delete me</button>}</span>
+                          <p className="comment-body">{comment.body}</p>
+                          <div className="comment-votes">{this.props.user && <Votes className="comment-votes"path={`/comments/${comment._id}`} votes={comment.votes} />}</div>
+                        </div>
+                    </article>)}
                 </article>
             </div>
             <AddComment article_id={this.props.match.params.article_id}/>

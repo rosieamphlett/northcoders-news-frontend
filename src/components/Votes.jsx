@@ -40,6 +40,7 @@ class Votes extends Component {
         this.setState ({
             userVotes
         })
+        this.props.changeVote(path, direction)
     })
 }
 
@@ -47,7 +48,7 @@ function mapDispatchToProps (dispatch) {
     return {
       changeVote: (path, direction) => {
         dispatch(actions.changeVote(path, direction))
-      } 
+      }
     };
 }
 

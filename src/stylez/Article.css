@@ -24,6 +24,7 @@
 .article-title {
     color: rgb(193, 0, 46);
     font-size: 24px;
+    margin-right: 3%
 }
 
 .article-title:hover {

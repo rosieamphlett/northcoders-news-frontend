@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import chooseImg from '../helpers/index';
 import "../stylez/Articles.css";
 import pt from 'prop-types';
@@ -7,7 +6,7 @@ import {connect} from 'react-redux';
 import * as actions from '../actions/actions';
 import Nav from './Nav';
 import Login from "./Login";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 class Articles extends Component {
   render () {
@@ -50,8 +49,8 @@ class Articles extends Component {
         <h2 className="article-title">{article.title}</h2>
         <img className="article-pic" src={chooseImg(article.belongs_to)} alt="article-pic" />
         <p className="textSnippet">{article.body.slice(0, 150)}...</p>
-        <span className="username">Posted by <span className="user">{article.created_by.username}</span></span>
         </Link>
+        <Link to={`/users/${article.created_by.username}`}className="username">Posted by <span className="user">{article.created_by.username}</span></Link>
         </div>
   </article>)
   }

@@ -1,52 +1,67 @@
-// import React, { Component } from "react";
-// import "../stylez/App.css";
-// import * as api from "../api";
-// import { Redirect } from "react-router-dom";
-// import pt from 'prop-types';
+import React, { Component } from "react";
+import "../stylez/App.css";
+import { Redirect } from "react-router-dom";
+import pt from 'prop-types';
+import Login from './Login';
+import Nav from './Nav'
+import * as actions from '../actions/actions';
+import {connect} from 'react-redux';
 
-// class User extends Component {
-//   state = {
-//     profile: {},
-//     error: null
-//   };
+class User extends Component {
+  componentDidMount() {
+    this.props.fetchUserId(this.props.match.params.id);
+    this.props.fetchUsers();
+    this.props.fetchTopics();
+  }
 
-//   componentDidMount() {
-//     api
-//       .fetchUserById(this.props.userId)
-//       .then(res => {
-//         if(res.type === 'error') {
-//           this.setState({
-//             error: res.error
-//           })
-//         } else {
-//           this.setState({
-//             profile: res[0]
-//           })
-//         }
-//       })
-//     }
+  render() {
+    let {error, userProfile, topics, users } = this.props
+    if (error) {
+      return <Redirect to={{pathname: '/error', state: error}} />
+    } else {
+      return (
+        <div>
+        <Nav topics={topics}/>
+        <Login users={users}/>
+        <div className="user-summary">
+            <h1>{userProfile.username}</h1>
+            <h2>{userProfile.name}</h2>
+            <img className="user-avatar" src={userProfile.avatar_url} onError={event => event.target.src="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"} alt="user-avatar" />
+        </div>
+        </div>
+      );
+    }
+    }         
+}
 
-//   render() {
-//     if (this.state.error) {
-//       return <Redirect to={{pathname: '/error', state: this.state.error}} />
-//     } else {
-//       return (
-        
-//         <div className="user-summary">
-//           <h3 className="username-heading"> {this.state.profile.username}</h3>
-//           <img className="avatar" src={this.state.profile.avatar_url} alt="user-avatar" onError={event =>
-//               (event.target.src =
-//                 "http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg")
-//             }/>
-//         </div>
-//       );
-//     }
-//   }
-// }
+function mapDispatchToProps (dispatch) {
+    return {
+      fetchUserId: (id) => {
+          dispatch(actions.fetchUserId(id))
+      },
+      fetchTopics: () => {
+        dispatch(actions.fetchTopics())
+      },
+      fetchUsers: () => {
+        dispatch(actions.fetchUsers());
+      }
+    };
+}
 
-// User.propTypes = {
-//   articles: pt.arrayOf(pt.object),
-//   userId: pt.string
-// };
+function MapStateToProps (state) {
+    return {
+        userProfile: state.userProfile,
+      loading: state.loading,
+      error: state.error,
+      users: state.users,
+      topics: state.topics
+    };
+}
 
-// export default User;
+
+User.propTypes = {
+    userProfile: pt.object,
+    fetchUserId: pt.func 
+};
+
+export default connect(MapStateToProps, mapDispatchToProps)(User);

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import pt from "prop-types";
 import * as actions from '../actions/actions';
 import {connect} from 'react-redux';
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class Login extends Component {
   render() {
@@ -24,8 +24,8 @@ class Login extends Component {
                 }</select>
             </div>
             : <div className="login-with-user">
-              <img className="logged-in-pic"src={user.avatar_url} onError={event => event.target.src="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"} alt="user-pic" />
-              <div className="logged-in-text">{user.name}</div>
+            <Link to={`/users/${user.username}`}><img className="logged-in-pic"src={user.avatar_url} onError={event => event.target.src="http://www.bsmc.net.au/wp-content/uploads/No-image-available.jpg"} alt="user-pic" />
+              <div className="logged-in-text">{user.name}</div></Link>
                 <button className="log-out" onClick={this.logOut}>Log out</button>
             </div>}
         </div>
@@ -41,7 +41,8 @@ class Login extends Component {
   }
 
   logOut = () => {
-      this.props.loggedInUser(null)
+      this.props.loggedInUser(null);
+      window.location.reload()
   }
 }
 

@@ -9,6 +9,7 @@ const initialState = {
   loading: true,
   users: [],
   user: null,
+  userProfile: {},
   error: null
 };
 
@@ -184,7 +185,28 @@ function reducer (prevState = initialState, action) {
     return newState;
   }
 
-  return prevState
+  if (action.type === types.FETCH_USERID_REQUEST) {
+    const newState = {...prevState};
+    newState.loading = true;
+    return newState;
+  }
+
+  if (action.type === types.FETCH_USERID_SUCCESS) {
+    const newState = {...prevState};
+    newState.userProfile = action.payload
+    newState.loading = false;
+    return newState;
+  }
+
+  if (action.type === types.FETCH_USERID_ERROR) {
+    const newState = {...prevState};
+    newState.userProfile = {}
+    newState.loading = false;
+    newState.error = action.payload;
+    return newState;
+  }
+
+  return prevState;
 }
 
 export default reducer;
