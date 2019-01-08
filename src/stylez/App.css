@@ -46,6 +46,10 @@ p {
   font-size: 14px;
 }
 
+.logged-in-text {
+  color: white;
+}
+
 .select-options {
   padding: 10%;
   border: none;
@@ -58,6 +62,7 @@ p {
 
 .login {
   cursor: pointer;
+  color: white;
 }
 
 .login-with-user {
